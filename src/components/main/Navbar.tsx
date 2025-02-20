@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import MainNavbar from "@/components/main/MainNavbar";
 import MainContents from "@/components/main/MainContents";
-import Image from "next/image";
 import MyProducts from "@/components/main/MyProducts";
 import { motion, AnimatePresence } from "framer-motion";
 
