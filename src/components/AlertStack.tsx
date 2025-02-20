@@ -6,13 +6,12 @@ export default function AlertStack() {
   const { alerts, removeAlert } = useAlertStore();
 
   return (
-    <div className="fixed inset-0 top-10 z-50 flex flex-col items-center space-y-[-10px]">
-      {/* ✅ 화면 아래쪽에 위치 & alert들이 겹쳐 보이도록 space-y를 음수로 설정 */}
+    <div className="fixed top-10 z-50 flex flex-col items-center space-y-[-10px]">
       <AnimatePresence>
         {alerts.map((alert, index) => (
           <motion.div
             key={alert.id}
-            layout // ✅ 자동 Stack 애니메이션
+            layout
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.9 }}

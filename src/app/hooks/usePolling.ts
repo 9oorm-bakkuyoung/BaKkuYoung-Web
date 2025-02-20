@@ -5,6 +5,7 @@ import { useAlertStore } from "@/stores/useAlertStore";
 
 const fetchNewData = async () => {
   try {
+    return;
     // const response = await fetch("/api/check-alert");
     // if (!response.ok) throw new Error("Failed to fetch");
 
