@@ -1,0 +1,27 @@
+{
+  "name": "제주 물품 공유 플랫폼",
+  "short_name": "제주공유",
+  "description": "제주 여행자들을 위한 물품 공유 플랫폼입니다.",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#3A86FF",
+  "icons": [
+    {
+      "src": "/icons/apple-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
