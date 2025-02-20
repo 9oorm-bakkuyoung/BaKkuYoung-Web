@@ -13,9 +13,9 @@ const MyProducts = ({ onSelect }: MyProductsProps) => {
 
     const images = [
         "/icons/mind.png",
-        "/icons/mind.png",
-        "/icons/mind.png",
-        "/icons/mind.png",
+        "/icons/rainy.png",
+        "/icons/jeju.png",
+        "/icons/phone.png",
         "/icons/mind.png",
     ];
 

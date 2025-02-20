@@ -13,7 +13,7 @@ const MainContents = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
             >
                 <div className="flex flex-col">
                     <h1 className={`text-3xl font-semibold ${isDrawerOpen ? "text-gray-200" : "text-white"}`}>맛있는 귤 10개</h1>
-                    <div className={`text-sm py-1 ${isDrawerOpen ? 'text-gray-600' : "text-gray-400"}`}>{info.join(" · ")}</div>
+                    <div className={`text-sm py-1 ${isDrawerOpen ? 'text-gray-500' : "text-gray-400"}`}>{info.join(" · ")}</div>
                     <h1 className={`text-base py-3 font-thin ${isDrawerOpen ? "text-gray-200" : "text-white"}`}>맛있는 귤이 너무 많아요</h1>
 
                     <div className="flex flex-row text-sm space-x-3">
@@ -36,13 +36,3 @@ const MainContents = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
 };
 
 export default MainContents;
-
-
-
-
-
-
-
-
-
-
