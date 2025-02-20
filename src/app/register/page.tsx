@@ -32,28 +32,26 @@ export default function Page() {
     const formData = new FormData();
 
     if (selectedFile) {
-      formData.append("image", selectedFile); // File 타입만 보장됨
+      formData.append("image", selectedFile);
     }
 
-    formData.append("productName", productName); // 상품명 추가
-    formData.append("description", description); // 상품 설명 추가
-    formData.append("exchangeItem", wishItem); // 교환 희망 물품 추가
+    formData.append("productName", productName);
+    formData.append("description", description);
+    formData.append("exchangeItem", wishItem);
 
-    console.log(productName, description, wishItem, selectedFile);
+    // try {
+    //   const response = await fetch("/api/upload", {
+    //     method: "POST",
+    //     body: formData, // FormData로 전송
+    //   });
 
-    try {
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body: formData, // FormData로 전송
-      });
+    //   if (!response.ok) throw new Error("파일 업로드 실패");
 
-      if (!response.ok) throw new Error("파일 업로드 실패");
-
-      const data = await response.json();
-      console.log("업로드 성공:", data);
-    } catch (error) {
-      console.error("업로드 에러:", error);
-    }
+    //   const data = await response.json();
+    //   console.log("업로드 성공:", data);
+    // } catch (error) {
+    //   console.error("업로드 에러:", error);
+    // }
   };
 
   return (

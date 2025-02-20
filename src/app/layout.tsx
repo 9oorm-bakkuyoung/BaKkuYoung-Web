@@ -41,7 +41,7 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={pretendard.className}>
-        <div className="min-w-[320px] max-w-[600px] w-full mx-auto my-0">
+        <div className="mx-auto my-0 w-full max-w-[600px] min-w-[320px]">
           <ClientThemeProvider>{children}</ClientThemeProvider>
         </div>
       </body>
