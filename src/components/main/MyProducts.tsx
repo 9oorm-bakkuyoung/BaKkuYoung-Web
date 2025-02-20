@@ -44,7 +44,7 @@ const MyProducts = () => {
                 className="flex overflow-x-auto space-x-3 scrollbar-hide"
             >
                 {images.map((src, index) => (
-                    <div key={index} className="flex-shrink-0">
+                    <div key={index} className="flex-shrink-0 pr-3">
                         <Image
                             src={src}
                             alt={`Product ${index}`}

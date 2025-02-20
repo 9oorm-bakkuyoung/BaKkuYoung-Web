@@ -79,7 +79,8 @@ const Navbar = () => {
 
                 {/* Drawer */}
                 <div
-                    className={`fixed inset-x-0 bottom-0 h-[280px] bg-black bg-opacity-20 rounded-t-lg shadow-lg transition-transform duration-300 ${
+                    style={{backgroundColor: "#252730"}}
+                    className={`fixed inset-x-0 bottom-0 h-[280px] bg-opacity-20 rounded-t-lg shadow-lg transition-transform duration-300 ${
                         isDrawerOpen ? "translate-y-0" : "translate-y-full"
                     }`}
                 >
@@ -96,11 +97,18 @@ const Navbar = () => {
                     </div>
 
                     {/* Drawer 내부 내용 */}
-                    <div className="p-6">
-                        <div className="flex flex-row space-x-2">
-                            <MyProducts />
+                    <div className="p-5">
+                        <div className="flex flex-row">
+                            <MyProducts/>
                         </div>
                     </div>
+
+                    <button
+                        onClick={() => alert('클릭!')}
+                        className="absolute w-[352px] rounded-md bg-gray-500 py-4 mx-5 text-white hover:bg-gray-600 active:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-400 transition-transform duration-150 ease-in-out transform hover:scale-105 active:scale-95">
+                        교환 신청하기
+                    </button>
+
                 </div>
             </div>
         </div>

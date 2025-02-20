@@ -9,7 +9,7 @@ const MainContents = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
             {/* 콘텐츠 (Drawer 상태에 따라 위치 조정) */}
             <div
                 className={`absolute inset-x-0 bottom-[50px] text-white px-5 pb-6 transition-transform duration-300 ${
-                    isDrawerOpen ? "translate-y-[-250px]" : "translate-y-0"
+                    isDrawerOpen ? "translate-y-[-230px]" : "translate-y-0"
                 }`}
             >
                 <div className="flex flex-col">
@@ -19,13 +19,13 @@ const MainContents = ({ isDrawerOpen }: { isDrawerOpen: boolean }) => {
 
                     {/* 태그 간격 조정 */}
                     <div className="flex flex-row text-sm space-x-3">
-                        <p className="bg-teal-400 rounded-full px-3 py-2 font-light inline-block">
+                        <p className="bg-teal-400 rounded-full px-3 py-2 font-light inline-block mr-2">
                             마음도 받아요
                         </p>
                         {tags.map((tag, index) => (
                             <p
                                 key={index}
-                                className="bg-gray-800 rounded-full px-3 py-2 font-light inline-block"
+                                className="bg-gray-800 rounded-full px-3 py-2 font-light inline-block mr-2"
                             >
                                 {tag}
                             </p>
