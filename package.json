@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@goorm-dev/vapor-core": "0.25.2-goormthon-13rd.1969",
+    "@goorm-dev/vapor-icons": "0.25.2-goormthon-250218-2.1960",
     "framer-motion": "^12.4.5",
     "gsap": "^3.12.7",
     "next": "^15.1.7",
@@ -26,7 +27,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
+    "install": "^0.13.0",
     "postcss": "^8.5.3",
+    "prettier": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.6.11",
     "tailwindcss": "^4.0.7",
     "typescript": "^5"
   }
