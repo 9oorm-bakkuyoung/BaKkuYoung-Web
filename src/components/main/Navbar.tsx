@@ -41,11 +41,12 @@ const Navbar = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <MainNavbar />
+            <MainNavbar isDrawerOpen={isDrawerOpen} />
 
             <div className="relative flex-1 bg-[url('/mandarin.png')] bg-[left_bottom] bg-no-repeat bg-cover">
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-70"></div>
+                <div className={`absolute inset-0 ${isDrawerOpen ? "bg-black opacity-50" : "bg-gradient-to-t from-black to-transparent opacity-70"}`}></div>
 
+                {/* 메인 콘텐츠 */}
                 <MainContents isDrawerOpen={isDrawerOpen} />
 
                 {/* Drawer 버튼 */}
