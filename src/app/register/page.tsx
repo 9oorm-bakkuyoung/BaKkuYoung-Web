@@ -1,11 +1,17 @@
 "use client";
 import { TextInput, Label, RadioGroup, Button } from "@goorm-dev/vapor-core";
 import { ChevronLeftOutlineIcon, CameraIcon } from "@goorm-dev/vapor-icons";
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useFormInput } from "../hooks/useFormInput";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const router = useRouter();
+
+  const handleAppClick = (link: string) => {
+    router.push(link); // 클라이언트 측 네비게이션
+  };
 
   const { value: productName, onChange: handleProductName } = useFormInput("");
   const { value: description, onChange: handleDescription } = useFormInput("");
@@ -28,36 +34,47 @@ export default function Page() {
     }
   };
 
+  // 입력 값 sessionStorage 저장
+  useEffect(() => {
+    sessionStorage.setItem("productName", productName);
+    sessionStorage.setItem("description", description);
+    sessionStorage.setItem("wishItem", wishItem);
+  }, [productName, description, wishItem]);
+
+  // 교환 신청 처리
   const handleExchange = async () => {
     const formData = new FormData();
 
     if (selectedFile) {
       formData.append("image", selectedFile);
     }
-
     formData.append("productName", productName);
     formData.append("description", description);
     formData.append("exchangeItem", wishItem);
 
-    // try {
-    //   const response = await fetch("/api/upload", {
-    //     method: "POST",
-    //     body: formData, // FormData로 전송
-    //   });
-
-    //   if (!response.ok) throw new Error("파일 업로드 실패");
-
-    //   const data = await response.json();
-    //   console.log("업로드 성공:", data);
-    // } catch (error) {
-    //   console.error("업로드 에러:", error);
-    // }
+    // 알림 및 페이지 이동
+    alert("교환 신청이 완료되었습니다!");
+    sessionStorage.clear(); // 저장된 데이터 삭제
+    router.push("/moin");
   };
+
+  // const handleExchange = async () => {
+  //   const formData = new FormData();
+  //
+  //   if (selectedFile) {
+  //     formData.append("image", selectedFile);
+  //   }
+  //
+  //   formData.append("productName", productName);
+  //   formData.append("description", description);
+  //   formData.append("exchangeItem", wishItem);
+  //
+  // };
 
   return (
     <>
       <section className="mb-[11px] h-14 w-full border-b-[1px] border-b-gray-600 px-5 py-[15px]">
-        <div className="flex items-center gap-3" onClick={handleItemImage}>
+        <div className="flex items-center gap-3" onClick={() => handleAppClick('/main')}>
           <ChevronLeftOutlineIcon size="24" color="white" />
           <p className="text-white">물품 등록</p>
         </div>
@@ -99,7 +116,7 @@ export default function Page() {
                 onChange={(e) => handleProductName(e)}
                 value={productName}
                 placeholder="상품 이름"
-                className="h-12 border-gray-600 bg-transparent"
+                className="h-12 border-gray-600 bg-transparent text-white"
               />
             </TextInput>
           </div>
@@ -144,7 +161,7 @@ export default function Page() {
                 onChange={(e) => handleDescription(e)}
                 value={description}
                 placeholder="상품에 대한 설명을 적어주세요"
-                className="h-12 border-gray-600 bg-transparent"
+                className="h-12 border-gray-600 bg-transparent text-white"
               />
             </TextInput>
           </div>
@@ -155,7 +172,7 @@ export default function Page() {
                 onChange={(e) => handleWishItem(e)}
                 value={wishItem}
                 placeholder="상품에 대한 설명을 적어주세요"
-                className="h-12 border-gray-600 bg-transparent"
+                className="h-12 border-gray-600 bg-transparent text-white"
               />
             </TextInput>
           </div>

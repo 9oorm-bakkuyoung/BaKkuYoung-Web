@@ -6,6 +6,7 @@ import Image from "next/image";
 
 export default function Page() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isActive, setActive } = useSeeOtherStore();
 
   return (
     <>
@@ -29,7 +30,8 @@ export default function Page() {
                 height={170}
               />
               <div className="w-full px-6 py-4">
-                <Button className="bg-[#00C38C]" stretch size="lg">
+                <Button
+                    className="bg-[#00C38C]" stretch size="lg">
                   다른 물건 구경하기
                 </Button>
               </div>

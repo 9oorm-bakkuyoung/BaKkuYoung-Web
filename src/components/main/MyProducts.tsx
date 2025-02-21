@@ -16,7 +16,6 @@ const MyProducts = ({ onSelect }: MyProductsProps) => {
         "/icons/rainy.png",
         "/icons/jeju.png",
         "/icons/phone.png",
-        "/icons/mind.png",
     ];
 
     // 이미지 선택 핸들러

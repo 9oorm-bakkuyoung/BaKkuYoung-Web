@@ -1,7 +1,7 @@
 import Navbar from "@/components/main/Navbar";
 
 
-const MainPage = () => {
+const MoinPage = () => {
 
     return(
         <>
@@ -10,4 +10,4 @@ const MainPage = () => {
     )
 }
 
-export default MainPage;
+export default MoinPage;

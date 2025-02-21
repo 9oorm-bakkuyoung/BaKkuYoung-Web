@@ -2,25 +2,18 @@
 
 import {useState, useRef, useEffect} from "react";
 import MainNavbar from "@/components/main/MainNavbar";
-import MainContents from "@/components/main/MainContents";
+import MainContents1 from "@/components/main/MainContents1";
 import MyProducts from "@/components/main/MyProducts";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import {useSeeOtherStore} from "@/stores/useSeeOtherStore";
 
-import { useSearchParams } from "next/navigation";
-import {AlertStack1} from "@/components/AlertStack1";
-import Modal from "@/components/Modal";
-import Image from "next/image";
-import {Button} from "@goorm-dev/vapor-core";
-
-const Navbar = () => {
+const Navbar1 = () => {
     const [isDrawerOpen, setDrawerOpen] = useState(false);
     const [isProductSelected, setProductSelected] = useState(false);
     const startY = useRef<number | null>(null);
     const router = useRouter();
-    const searchParams = useSearchParams();
-
-
+    const { isActive, setInactive } = useSeeOtherStore();
 
     const handleAppClick = () => {
         router.push('/exchange'); // 클라이언트 측 네비게이션
@@ -95,57 +88,21 @@ const Navbar = () => {
         setProductSelected(selected);
     };
 
-    const alert_status = sessionStorage.getItem('alert_status')
-
-
-    // 상태와 동기화
-    const [alertStatus, setAlertStatus] = useState(() => {
-        return sessionStorage.getItem("alert_status") === "true";
-    });
-    const [isOpen, setIsOpen] = useState(false);
-
     useEffect(() => {
-        if (alertStatus) {
-            const timer = setTimeout(() => {
-                sessionStorage.setItem("alert_status", "false");
-                setAlertStatus(false); // 상태를 false로 변경
-                setIsOpen(true);
-            }, 3000);
-            // 타이머 클린업
-            return () => clearTimeout(timer);
+        if( isActive === true ) {
+            setTimeout(() => {
+
+            }, 3000)
         }
-    }, [alertStatus]);
+    })
 
     return (
         <div className="flex min-h-screen flex-col">
             <MainNavbar isDrawerOpen={isDrawerOpen}/>
             <div className="relative flex-1 overflow-hidden">
-                {alertStatus && (
-                    <div className="flex justify-center items-center h-full">
-                        <AlertStack1/>
-                    </div>
-                )}
-                {isOpen && (
-                    <>
-                        <Modal open={isOpen} onOpenChange={setIsOpen} title="매칭 성공!">
-                            <div className="flex flex-col items-center justify-center">
-                                <Image
-                                    src="./happy_exchange.svg"
-                                    alt="happy_exchange"
-                                    width={351}
-                                    height={170}
-                                />
-                                <div className="w-full px-6 py-4">
-                                    <Button onClick={() => router.push('/chat')} className="bg-[#00C38C]" stretch size="lg">
-                                        채팅방 열기
-                                    </Button>
-                                </div>
-                            </div>
-                        </Modal>
-                    </>
-                )}
+
                 <AnimatePresence>
-                <motion.div
+                    <motion.div
                         key={bgImages[currentIndex].src}
                         className={`absolute inset-0 flex items-center justify-center bg-cover bg-no-repeat ${
                             isDrawerOpen ? "bg-black opacity-50" : ""
@@ -161,7 +118,7 @@ const Navbar = () => {
                         whileDrag={{ scale: 1.05, rotate: 20 }}
                     >
                         <div className="text-2xl text-white">
-                            <MainContents isDrawerOpen={isDrawerOpen} />
+                            <MainContents1 isDrawerOpen={isDrawerOpen} />
                         </div>
                     </motion.div>
                 </AnimatePresence>
@@ -219,4 +176,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Navbar1;

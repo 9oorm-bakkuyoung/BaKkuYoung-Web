@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
 
           {/* 모달 본체 */}
           <motion.div
-            className="relative z-50 w-[90%] max-w-md rounded-[10px] bg-white p-6 shadow-lg dark:bg-[#252730]"
+            className="relative z-50 w-[90%] max-w-md rounded-[10px] p-6 shadow-lg bg-[#252730]"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -45,7 +45,7 @@ const Modal: React.FC<ModalProps> = ({
             {/* 모달 헤더 */}
             <div className="flex items-center justify-between border-b pb-3">
               {title && (
-                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h2 className="text-lg font-semibold text-white">
                   {title}
                 </h2>
               )}
