@@ -1,9 +1,8 @@
 "use client";
-import { TextInput, Label, RadioGroup, Button } from "@goorm-dev/vapor-core";
-import { ChevronLeftOutlineIcon, CameraIcon } from "@goorm-dev/vapor-icons";
 import React, { useRef, useState, useEffect } from "react";
 import { useFormInput } from "../hooks/useFormInput";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -74,30 +73,32 @@ export default function Page() {
   return (
     <>
       <section className="mb-[11px] h-14 w-full border-b-[1px] border-b-gray-600 px-5 py-[15px]">
-        <div className="flex items-center gap-3" onClick={() => handleAppClick('/main')}>
-          <ChevronLeftOutlineIcon size="24" color="white" />
+        <div
+          className="flex items-center gap-3"
+          onClick={() => handleAppClick("/main")}
+        >
           <p className="text-white">물품 등록</p>
         </div>
       </section>
       <section className="mx-5 flex h-[calc(100vh-130px)] flex-col justify-between">
         <div className="flex flex-col gap-7 text-white">
           <div className="flex flex-col gap-2">
-            <Label color="foreground-light">사진 선택</Label>
+            <label color="foreground-light">사진 선택</label>
             <div className="relative inline-block">
               {selectedImage ? (
-                <img
+                <Image
                   src={selectedImage}
                   alt="Selected"
-                  className="h-[60px] w-[60px] cursor-pointer rounded-lg object-cover"
+                  className="cursor-pointer rounded-lg object-cover"
                   onClick={handleItemImage}
+                  width={60}
+                  height={60}
                 />
               ) : (
                 <div
                   className="mt-2 flex h-[60px] w-[60px] cursor-pointer items-center justify-center rounded-[calc(0.5rem*1)] border border-gray-600"
                   onClick={handleItemImage}
-                >
-                  <CameraIcon size="24" color="white" />
-                </div>
+                ></div>
               )}
             </div>
 
@@ -109,82 +110,87 @@ export default function Page() {
               onChange={handleFileChange}
             />
           </div>
+          {/* 상품명 입력 */}
           <div>
-            <TextInput type="text">
-              <TextInput.Label color="white">상품명</TextInput.Label>
-              <TextInput.Field
-                onChange={(e) => handleProductName(e)}
-                value={productName}
-                placeholder="상품 이름"
-                className="h-12 border-gray-600 bg-transparent text-white"
-              />
-            </TextInput>
+            <label className="block text-white">상품명</label>
+            <input
+              type="text"
+              onChange={(e) => handleProductName(e)}
+              value={productName}
+              placeholder="상품 이름"
+              className="mt-2 h-12 w-full rounded-md border border-gray-600 bg-transparent px-4 text-white placeholder-gray-400 focus:border-[#00C38C] focus:outline-none"
+            />
           </div>
+
+          {/* 거래 방식 선택 */}
           <div>
-            <Label color="foreground-light">거래 방식</Label>
-            <div className="mt-2">
-              <RadioGroup
-                defaultSelectedValue="heart"
-                className="flex gap-2"
-                onSelectedValueChange={(e) => setRadioValue(e)}
-              >
-                <RadioGroup.Item>
-                  <RadioGroup.Indicator value="heart" className="peer hidden" />
-                  <RadioGroup.Label>
-                    <div
-                      className={`flex h-[38px] w-24 items-center justify-center rounded-[30px] px-2.5 py-2 ${radioValue === "heart" ? "bg-[#E1E1E8] text-black" : "border border-gray-600 bg-transparent text-white"}`}
-                    >
-                      <p className="text-sm tracking-tight">마음도 받아요</p>
-                    </div>
-                  </RadioGroup.Label>
-                </RadioGroup.Item>
-                <RadioGroup.Item>
-                  <RadioGroup.Indicator
-                    value="product"
-                    className="peer hidden"
-                  />
-                  <RadioGroup.Label>
-                    <div
-                      className={`flex h-[38px] w-24 items-center justify-center rounded-[30px] px-2.5 py-2 ${radioValue === "product" ? "bg-[#E1E1E8] text-black" : "border border-gray-600 bg-transparent text-white"}`}
-                    >
-                      <p className="text-sm tracking-tight">물품만 받아요</p>
-                    </div>
-                  </RadioGroup.Label>
-                </RadioGroup.Item>
-              </RadioGroup>
+            <label className="block text-white">거래 방식</label>
+            <div className="mt-2 flex gap-2">
+              <label className="flex h-[38px] w-fit cursor-pointer items-center justify-center rounded-[30px] border border-gray-600 text-white">
+                <input
+                  type="radio"
+                  name="tradeType"
+                  value="heart"
+                  checked={radioValue === "heart"}
+                  onChange={() => setRadioValue("heart")}
+                  className="hidden"
+                />
+                <span
+                  className={`${radioValue === "heart" ? "bg-[#E1E1E8] text-black" : "bg-transparent"} flex h-full w-full items-center justify-center rounded-[30px] px-2`}
+                >
+                  마음도 받아요
+                </span>
+              </label>
+
+              <label className="flex h-[38px] w-fit cursor-pointer items-center justify-center rounded-[30px] border border-gray-600 text-white">
+                <input
+                  type="radio"
+                  name="tradeType"
+                  value="product"
+                  checked={radioValue === "product"}
+                  onChange={() => setRadioValue("product")}
+                  className="hidden"
+                />
+                <span
+                  className={`${radioValue === "product" ? "bg-[#E1E1E8] text-black" : "bg-transparent"} flex h-full w-full items-center justify-center rounded-[30px] px-2`}
+                >
+                  물품만 받아요
+                </span>
+              </label>
             </div>
           </div>
+
+          {/* 간단한 설명 입력 */}
           <div>
-            <TextInput type="text">
-              <TextInput.Label color="white">간단한 설명</TextInput.Label>
-              <TextInput.Field
-                onChange={(e) => handleDescription(e)}
-                value={description}
-                placeholder="상품에 대한 설명을 적어주세요"
-                className="h-12 border-gray-600 bg-transparent text-white"
-              />
-            </TextInput>
+            <label className="block text-white">간단한 설명</label>
+            <input
+              type="text"
+              onChange={(e) => handleDescription(e)}
+              value={description}
+              placeholder="상품에 대한 설명을 적어주세요"
+              className="mt-2 h-12 w-full rounded-md border border-gray-600 bg-transparent px-4 text-white placeholder-gray-400 focus:border-[#00C38C] focus:outline-none"
+            />
           </div>
+
+          {/* 교환 희망 물품 입력 */}
           <div>
-            <TextInput type="text">
-              <TextInput.Label color="white">교환 희망 물품</TextInput.Label>
-              <TextInput.Field
-                onChange={(e) => handleWishItem(e)}
-                value={wishItem}
-                placeholder="상품에 대한 설명을 적어주세요"
-                className="h-12 border-gray-600 bg-transparent text-white"
-              />
-            </TextInput>
+            <label className="block text-white">교환 희망 물품</label>
+            <input
+              type="text"
+              onChange={(e) => handleWishItem(e)}
+              value={wishItem}
+              placeholder="상품에 대한 설명을 적어주세요"
+              className="mt-2 h-12 w-full rounded-md border border-gray-600 bg-transparent px-4 text-white placeholder-gray-400 focus:border-[#00C38C] focus:outline-none"
+            />
           </div>
         </div>
-        <Button
-          stretch
-          size="xl"
-          className="bg-[#00C38C]"
+        {/* 교환 신청 버튼 */}
+        <button
           onClick={handleExchange}
+          className="w-full rounded-md bg-[#00C38C] py-3 text-xl font-semibold text-white transition hover:bg-[#00A375]"
         >
           교환 신청하기
-        </Button>
+        </button>
       </section>
     </>
   );
