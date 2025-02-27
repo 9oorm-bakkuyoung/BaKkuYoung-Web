@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./reset.css";
 import localFont from "next/font/local";
-import { ClientThemeProvider } from "@/components/ClientThemeProvider";
 
 const pretendard = localFont({
   src: "../static/fonts/PretendardVariable.woff2",
@@ -42,7 +41,7 @@ export default function RootLayout({
       </head>
       <body className={pretendard.className}>
         <div className="mx-auto my-0 w-full max-w-[600px] min-w-[320px]">
-          <ClientThemeProvider>{children}</ClientThemeProvider>
+          {children}
         </div>
       </body>
     </html>
