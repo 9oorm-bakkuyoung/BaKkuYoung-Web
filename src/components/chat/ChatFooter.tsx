@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { IoMdSend } from "react-icons/io";
+
 
 interface ChatFooterProps {
   onSendMessage: (message: string) => void;
@@ -38,7 +40,7 @@ const ChatFooter = ({ onSendMessage }: ChatFooterProps) => {
           onClick={handleSendMessage}
           className="absolute top-1/2 right-3 -translate-y-1/2 transform rounded-full bg-teal-500 p-2 text-white hover:bg-teal-600"
         >
-          {/* <SendIcon size="var(--dimension-300)" /> */}
+          <IoMdSend />
         </button>
       </div>
     </div>

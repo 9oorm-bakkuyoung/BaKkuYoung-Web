@@ -26,22 +26,22 @@ export const metadata: Metadata = {
   },
 };
 export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+                                     children,
+                                   }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="ko" className={`${pretendard.variable}`}>
-    <head>
-      {/* iOS 홈 화면 아이콘 */}
-      <link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-icon-180x180.png"/>
-      <meta name="apple-mobile-web-app-capable" content="yes"/>
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
-      <meta name="theme-color" content="#ffffff"/>
-    </head>
-    <body className={pretendard.className}>
-    <div className="mx-auto my-0 w-full max-w-[600px] min-w-[320px]">
-      {children}
-    </div>
-    </body>
-    </html>
+      <html lang="ko" className={`${pretendard.variable}`}>
+      <head>
+        {/* iOS 홈 화면 아이콘 */}
+        <link rel="apple-touch-icon" sizes="180x180" href="/pwa-icons/apple-icon-180x180.png"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="theme-color" content="#ffffff"/>
+      </head>
+      <body className={pretendard.className}>
+      <div className="mx-auto w-full max-w-screen-sm overflow-hidden">
+        {children}
+      </div>
+      </body>
+      </html>
   );
 }
