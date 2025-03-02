@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "./reset.css";
 import localFont from "next/font/local";
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { headers } from "next/headers";
 
 const pretendard = localFont({
     src: "../static/fonts/PretendardVariable.woff2",
@@ -29,19 +27,38 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
-    const token = cookies().get("token")?.value;
-    const pathname = (await headers()).get("x-pathname") || "/";
-
-    // 1. 로그인 페이지(`/login`)에서는 로그인 검사를 하지 않음
-    if (pathname === "/login") {
-        if (token) {
-            redirect("/main"); // 로그인된 사용자는 로그인 페이지가 아닌 메인으로 보냄
-        }
+// 세션 확인 함수
+async function checkSession() {
+    try {
+        const res = await fetch("http://ec2-3-38-13-139.ap-northeast-2.compute.amazonaws.com:8080/api/auth/me", { cache: "no-store" });
+        if (!res.ok) return null;
+        const data = await res.json();
+        return data.data;
+    } catch (error) {
+        return null;
     }
-    // 2. 로그인되지 않은 사용자가 보호된 페이지에 접근하면 `/login`으로 리디렉트
-    else if (!token && pathname !== "/") {
-        redirect("/login");
+}
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+    const user = await checkSession();
+
+    if (typeof window !== "undefined") {
+        const pathname = window.location.pathname;
+
+        // ✅ 홈 페이지("/")는 로그인 검사하지 않고, 3초 후 로그인 페이지로 이동
+        if (pathname === "/") {
+            return <>{children}</>;
+        }
+
+        // ✅ 로그인한 사용자가 "/login" 또는 "/join"에 접근하면 "/main"으로 리디렉트
+        if (user && (pathname === "/login" || pathname === "/join")) {
+            redirect("/main");
+        }
+
+        // ✅ 로그인하지 않은 사용자가 보호된 페이지에 접근하면 "/login"으로 리디렉트
+        if (!user && pathname !== "/login" && pathname !== "/join") {
+            redirect("/login");
+        }
     }
 
     return (
