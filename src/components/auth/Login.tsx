@@ -13,6 +13,11 @@ export default function Login() {
         e.preventDefault();
         setError("");
 
+        if (!id.trim() || !password.trim()) {
+            setError("아이디와 비밀번호를 입력해주세요.");
+            return;
+        }
+
         try {
             const res = await fetch("http://ec2-3-38-13-139.ap-northeast-2.compute.amazonaws.com:8080/api/auth/login", {
                 method: "POST",
@@ -20,12 +25,22 @@ export default function Login() {
                 body: JSON.stringify({ id, password }),
             });
 
-            if (res.ok) {
+            console.log("응답 상태:", res.status);
+            console.log("응답 헤더:", res.headers.get("content-type")); // 추가된 디버깅 코드
+
+            if (!res.ok) {
+                throw new Error(`HTTP 오류! 상태 코드: ${res.status}`);
+            }
+
+            if (res.headers.get("content-type")?.includes("application/json")) {
+                const data = await res.json();
+                console.log("서버 응답 데이터:", data);
                 router.push("/main");
             } else {
-                throw new Error("로그인 실패!");
+                throw new Error("잘못된 응답 형식입니다. JSON 응답이 아닙니다.");
             }
         } catch (err) {
+            console.error("로그인 오류:", err);
             setError(err.message);
         }
     };
@@ -54,8 +69,11 @@ export default function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button type="submit"
-                            className="mt-2 w-full text-white py-4 rounded-lg bg-teal-400 hover:bg-hoverColor">
+                    <button
+                        type="submit"
+                        className={`mt-2 w-full text-white py-4 rounded-lg ${id.trim() && password.trim() ? "bg-teal-400 hover:bg-hoverColor" : "bg-gray-600 cursor-not-allowed"}`}
+                        disabled={!id.trim() || !password.trim()}
+                    >
                         로그인
                     </button>
                     <p className="text-white mt-4">

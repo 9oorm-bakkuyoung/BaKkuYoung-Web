@@ -1,11 +1,11 @@
-import Navbar from "@/components/main/Navbar";
+import Main from "@/components/main/Main";
 
 
 const MainPage = () => {
 
     return(
         <>
-            <Navbar/>
+            <Main/>
         </>
     )
 }
