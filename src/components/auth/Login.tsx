@@ -20,14 +20,10 @@ export default function Login() {
                 body: JSON.stringify({ id, password }),
             });
 
-            if (!res.ok) throw new Error("로그인 실패");
-
-            // 로그인 성공 후에만 사용자 정보 가져오기
-            const sessionRes = await fetch("http://ec2-3-38-13-139.ap-northeast-2.compute.amazonaws.com:8080/api/auth/me", { cache: "no-store" });
-            if (sessionRes.ok) {
+            if (res.ok) {
                 router.push("/main");
             } else {
-                throw new Error("세션 확인 실패");
+                throw new Error("로그인 실패!");
             }
         } catch (err) {
             setError(err.message);
