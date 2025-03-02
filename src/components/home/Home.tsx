@@ -16,7 +16,7 @@ const Home = () => {
     useEffect(() => {
         // 3초 후 자동 이동
         const timer = setTimeout(() => {
-          router.push("/main");
+          router.push("/login");
         }, 3000);
 
         // 🟢 날개 애니메이션 (기울이면서 인사)

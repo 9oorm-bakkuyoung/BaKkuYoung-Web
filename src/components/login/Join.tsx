@@ -2,30 +2,22 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { login } from "@/apis/auth";
+import { join } from "@/apis/auth";
 
-export default function Login() {
+export function Join() {
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    const [memberName, setMemberName] = useState("");
     const [error, setError] = useState("");
     const router = useRouter();
 
-    const handleLogin = async (e: React.FormEvent) => {
+    const handleJoin = async (e: React.FormEvent) => {
         e.preventDefault();
         setError("");
 
-        if (!id || !password) {
-            setError("아이디와 비밀번호를 입력해주세요.");
-            return;
-        }
-
         try {
-            const data = await login(id, password);
-
-            // 토큰을 쿠키에 저장
-            document.cookie = `token=${data.token}; path=/; max-age=86400; Secure; HttpOnly`;
-
-            router.push("/main");
+            await join(id, password, memberName);
+            router.push("/success"); // 회원가입 성공 후 이동
         } catch (err) {
             setError(err.message);
         }
@@ -33,14 +25,10 @@ export default function Login() {
 
     return (
         <div className="flex flex-col items-center justify-start min-h-screen bg-black pt-28 p-8">
-            <h1 className="w-full max-w-md py-4 text-start text-4xl font-bold text-white">로그인</h1>
+            <h1 className="w-full max-w-md py-4 text-start text-4xl font-bold text-white">회원가입</h1>
             <div className="w-full max-w-md py-8">
-                {error && (
-                    <div className="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
-                        {error}
-                    </div>
-                )}
-                <form className="space-y-6" onSubmit={handleLogin}>
+                {error && <p className="text-red-500">{error}</p>}
+                <form className="space-y-6" onSubmit={handleJoin}>
                     <input
                         type="text"
                         className="w-full p-4 mb-6 border border-gray-500 bg-transparent rounded-lg text-white placeholder-gray-500"
@@ -55,13 +43,17 @@ export default function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    <input
+                        type="text"
+                        className="w-full p-4 mb-6 border border-gray-500 bg-transparent rounded-lg text-white placeholder-gray-500"
+                        placeholder="이름"
+                        value={memberName}
+                        onChange={(e) => setMemberName(e.target.value)}
+                    />
                     <button type="submit" className="mt-2 w-full text-white py-4 rounded-lg bg-teal-400 hover:bg-hoverColor">
-                        로그인
+                        회원가입
                     </button>
                 </form>
-                <p className="text-white mt-4">
-                    아직 회원이 아니신가요? <span className="text-teal-400 cursor-pointer" onClick={() => router.push('/join')}>회원가입</span>
-                </p>
             </div>
         </div>
     );
